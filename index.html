@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div id="main"></div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="antineutrons.js"></script>
+	<script type="text/javascript">
+		var Example = createClass( {
+		    render: [
+	        '<div>',
+	          '<h1>antineutrons</h1>',
+	          '<img src="http://genesismission.4t.com/Physics/particle_physics/anti-neutron.gif">',
+	          '<ul class="items"></ul>',
+	        '</div>'
+		    ],
+
+		    mountComponent: function () {
+	        this.data = [
+	          {
+	          	title: 'Antineutrons.js',
+	          	year: 1996,
+	          	completed: false
+	          }
+	        ];
+		    },
+
+		    updateInitialState: function () {
+		      this.searchComponent( 'ul.items' ).newIntent( this.data, ExampleItem, this );
+		    }
+
+		} );
+
+		var ExampleItem = createClass( {
+
+		    render: [
+	        '<li>',
+	          '<strong class="title"></strong>',
+	        '</li>'
+		    ],
+
+		    mountComponent: function ( todo ) {
+	        this.todo = todo;
+	        this.onState( 'click', this.toggle );
+		    },
+
+		    updateInitialState: function () {
+	        this.component.mergeComponent( this.data.title );
+	        this.component.componentClass( { completed: this.data.completed } );
+		    },
+
+		    toggle: function () {
+	        this.data.completed = !this.data.completed;
+	        this.todo.update();
+		    }
+
+		} );
+		Example.renderComponent('#main');
+	</script>
+
+</body>
+</html>
